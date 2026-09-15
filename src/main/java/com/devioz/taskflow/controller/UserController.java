@@ -46,4 +46,11 @@ public class UserController {
         UserResponse user = userService.getUserById(id);
         return ResponseEntity.ok(ApiResponse.ok(user, "Usuario encontrado"));
     }
+
+    @GetMapping("/{emai/emaill}")
+    @Operation(summary = "Obtener usuario por email", description = "Retorna los datos de un usuario por su correo electrónico")
+    public ResponseEntity<ApiResponse<UserResponse>> getUserByEmail(@PathVariable String email) {
+        UserResponse user = userService.getUserByEmail(email);
+        return ResponseEntity.ok(ApiResponse.ok(user, "Usuario encontrado"));
+    }
 }

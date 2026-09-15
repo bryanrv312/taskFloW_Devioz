@@ -11,5 +11,7 @@ public interface UserService {
 
     UserResponse getUserById(Integer id);
 
+    UserResponse getUserByEmail(String email);
+
     UserResponse getCurrentUser(UserPrincipal currentUser);
 }
