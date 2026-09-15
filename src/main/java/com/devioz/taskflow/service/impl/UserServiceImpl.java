@@ -45,6 +45,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
+    public UserResponse getUserByNombre(String nombre) {
+        User user = userRepository.findFirstByNombreIgnoreCase(nombre)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario", "nombre", nombre));
+        return mapToResponse(user);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public UserResponse getCurrentUser(UserPrincipal currentUser) {
         User user = userRepository.findById(currentUser.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", currentUser.getId()));

@@ -18,5 +18,9 @@ if exist "%USERPROFILE%\.maven\apache-maven-3.9.9\bin\mvn.cmd" (
     "%USERPROFILE%\.maven\apache-maven-3.9.9\bin\mvn.cmd" %*
     exit /b %ERRORLEVEL%
 )
+if exist "%USERPROFILE%\.m2\apache-maven-3.9.6\bin\mvn.cmd" (
+    "%USERPROFILE%\.m2\apache-maven-3.9.6\bin\mvn.cmd" %*
+    exit /b %ERRORLEVEL%
+)
 mvn %*
 exit /b %ERRORLEVEL%

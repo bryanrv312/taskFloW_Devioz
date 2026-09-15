@@ -13,5 +13,7 @@ public interface UserService {
 
     UserResponse getUserByEmail(String email);
 
+    UserResponse getUserByNombre(String nombre);
+
     UserResponse getCurrentUser(UserPrincipal currentUser);
 }
