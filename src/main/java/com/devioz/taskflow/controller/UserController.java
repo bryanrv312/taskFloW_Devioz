@@ -47,10 +47,17 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.ok(user, "Usuario encontrado"));
     }
 
-    @GetMapping("/{emai/emaill}")
+    @GetMapping("/email/{email}")
     @Operation(summary = "Obtener usuario por email", description = "Retorna los datos de un usuario por su correo electrónico")
     public ResponseEntity<ApiResponse<UserResponse>> getUserByEmail(@PathVariable String email) {
         UserResponse user = userService.getUserByEmail(email);
+        return ResponseEntity.ok(ApiResponse.ok(user, "Usuario encontrado"));
+    }
+
+    @GetMapping("/nombre/{nombre}")
+    @Operation(summary = "Obtener usuario por nombre", description = "Retorna los datos de un usuario por su nombre")
+    public ResponseEntity<ApiResponse<UserResponse>> getUserByNombre(@PathVariable String nombre) {
+        UserResponse user = userService.getUserByNombre(nombre);
         return ResponseEntity.ok(ApiResponse.ok(user, "Usuario encontrado"));
     }
 }
