@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+//caja genérica para empaquetar cualquier resultado que tu API le envíe al frontend.
+
 @Getter
 @Setter
 @NoArgsConstructor
