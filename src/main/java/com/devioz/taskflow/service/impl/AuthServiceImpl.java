@@ -2,6 +2,7 @@ package com.devioz.taskflow.service.impl;
 
 import com.devioz.taskflow.exception.BadRequestException;
 import com.devioz.taskflow.exception.ResourceNotFoundException;
+import com.devioz.taskflow.mapper.AuthMapper;
 import com.devioz.taskflow.model.Role;
 import com.devioz.taskflow.model.User;
 import com.devioz.taskflow.payload.request.LoginRequest;
@@ -31,6 +32,7 @@ public class AuthServiceImpl implements AuthService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider tokenProvider;
+    private final AuthMapper authMapper;
 
     @Override
     public AuthResponse login(LoginRequest loginRequest) {
@@ -48,14 +50,7 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findById(userPrincipal.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", userPrincipal.getId()));
 
-        return AuthResponse.builder()
-                .token(jwt)
-                .tokenType("Bearer")
-                .id(user.getId())
-                .nombre(user.getNombre())
-                .email(user.getEmail())
-                .rol(user.getRol().getNombre())
-                .build();
+        return authMapper.toAuthResponse(user, jwt);
     }
 
     @Override
@@ -75,12 +70,8 @@ public class AuthServiceImpl implements AuthService {
                     .orElseThrow(() -> new BadRequestException("No existen roles configurados en la base de datos"));
         }
 
-        User user = User.builder()
-                .nombre(registerRequest.getNombre())
-                .email(registerRequest.getEmail())
-                .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .rol(rol)
-                .build();
+        String encodedPassword = passwordEncoder.encode(registerRequest.getPassword());
+        User user = authMapper.toUser(registerRequest, rol, encodedPassword);
 
         userRepository.save(user);
 
