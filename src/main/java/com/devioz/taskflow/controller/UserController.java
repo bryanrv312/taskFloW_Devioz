@@ -35,7 +35,8 @@ public class UserController {
 
     @GetMapping("/me")
     @Operation(summary = "Obtener perfil del usuario autenticado", description = "Retorna los datos del usuario en sesión a partir de su Bearer Token")
-    public ResponseEntity<ApiResponse<UserResponse>> getCurrentUser(@AuthenticationPrincipal UserPrincipal currentUser) {
+    public ResponseEntity<ApiResponse<UserResponse>> getCurrentUser(
+            @AuthenticationPrincipal UserPrincipal currentUser) {
         UserResponse user = userService.getCurrentUser(currentUser);
         return ResponseEntity.ok(ApiResponse.ok(user, "Perfil del usuario autenticado"));
     }
@@ -61,3 +62,4 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.ok(user, "Usuario encontrado"));
     }
 }
+// hola
